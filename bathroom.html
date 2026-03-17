@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bathroom Renovation Client Checklist</title>
+
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f6f7f4;
+    margin: 0;
+    padding: 30px;
+    color: #2f3a32;
+  }
+
+  .container {
+    max-width: 950px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #dbe2dd;
+  }
+
+  .header-bar {
+    background: #9fbc9b;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 35px;
+    color: #ffffff;
+  }
+
+  .header-bar img {
+    width: 140px;
+    margin-bottom: 10px;
+  }
+
+  .header-bar h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .header-bar p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  h2 {
+    color: #4c5e53;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    border-left: 6px solid #9fbc9b;
+    padding-left: 10px;
+  }
+
+  h3 {
+    margin-bottom: 12px;
+  }
+
+  .field-group {
+    margin-bottom: 15px;
+  }
+
+  .field-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b9c9b6;
+    border-radius: 6px;
+    background: #f8fdf7;
+    font-size: 14px;
+  }
+
+  textarea {
+    height: 120px;
+  }
+
+  .category-box {
+    background: #f4f9f3;
+    border: 1px solid #c5d5c1;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .category-desc {
+    color: #4f5d52;
+    font-size: 14px;
+    opacity: 0.8;
+    margin: 6px 0 0 28px;
+  }
+
+  .vertical-options label {
+    display: block;
+    padding: 6px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #fdfefc;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  table th {
+    background: #d9e6d5;
+    padding: 10px;
+    font-weight: 600;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  table td {
+    padding: 10px;
+    border-bottom: 1px solid #e3e9e1;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .sub-options {
+    margin-left: 20px;
+    margin-top: 8px;
+  }
+
+  .notes-box {
+    background: #f4f9f3;
+    border: 1px solid #c8d7c4;
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .faded {
+    opacity: 0.35;
+  }
+
+  .submit-btn {
+    background: #9fbc9b;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 40px;
+  }
+
+</style>
+
+<script>
+// Logic for table & assist options
+function updateAssistance() {
+  const val = document.querySelector('input[name="assist"]:checked')?.value;
+  document.getElementById("product-table").style.display =
+    (val === "assist" || val === "none") ? "block" : "none";
+  document.getElementById("budget-field").style.display =
+    (val === "assist") ? "block" : "none";
+}
+
+// Windows logic
+function updateWindows() {
+  const yes = document.getElementById("window-yes").checked;
+  const no  = document.getElementById("window-no").checked;
+  document.getElementById("window-yes-options").style.display = yes ? "block" : "none";
+  document.getElementById("window-no-options").style.display  = no ? "block" : "none";
+}
+
+// Living logic
+function updateLiving() {
+  const living = document.getElementById("living-yes").checked;
+  document.getElementById("second-bathroom").style.display = living ? "block" : "none";
+}
+
+// Row fade / disable
+function updateRow(groupName, rowId) {
+  const radios = document.querySelectorAll(`input[name="${groupName}"]`);
+  const row = document.getElementById(rowId);
+  const brand = row.querySelector(".brand");
+  const link = row.querySelector(".link");
+  const selected = [...radios].find(r => r.checked)?.value;
+  if (selected === "na") {
+    row.classList.add("faded");
+    brand.disabled = true;
+    link.disabled = true;
+  } else {
+    row.classList.remove("faded");
+    brand.disabled = false;
+    link.disabled = false;
+  }
+}
+
+// High-End bathroom logic
+function updateBathroomCategory() {
+  const high = document.getElementById("bath-high").checked;
+  document.getElementById("high-end-rows").style.display = high ? "table-row-group" : "none";
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+
+<form action="[formsubmit.co](https://formsubmit.co/hunter.build95@gmail.com)" method="POST">
+
+<!-- Email formatting -->
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Bathroom Checklist Submission">
+<input type="hidden" name="_next" value="[yourwebsite.com](https://yourwebsite.com/thankyou)">
+
+<div class="header-bar">
+  <img src="logo.png" alt="Company Logo">
+  <h1>Van Hunter Group Pty Ltd</h1>
+  <p>ABN 67 669 936 163</p>
+</div>
+
+<h2>Bathroom Category</h2>
+
+<div class="category-box">
+  <label><input type="radio" name="bathcat" value="Basic Bathroom" onclick="updateBathroomCategory()"> Basic Bathroom</label>
+  <div class="category-desc">Ideal for rental properties. Tiles typically installed to 1200mm height with painted gyprock above.</div>
+</div>
+
+<div class="category-box">
+  <label><input type="radio" name="bathcat" value="Mid‑Range Bathroom" onclick="updateBathroomCategory()"> Mid‑Range Bathroom</label>
+  <div class="category-desc">Higher‑quality floor‑to‑ceiling tiles with durable, well‑finished components.</div>
+</div>
+
+<div class="category-box">
+  <label><input type="radio" id="bath-high" name="bathcat" value="High‑End Bathroom" onclick="updateBathroomCategory()"> High‑End Bathroom</label>
+  <div class="category-desc">Premium finish with luxury upgrades including LED mood lighting, underfloor heating, and skylight installation.</div>
+</div>
+
+<h2>Client Information</h2>
+
+<div class="field-group"><span class="field-label">Client Name:</span><input type="text" name="Client Name"></div>
+<div class="field-group"><span class="field-label">Project Address:</span><input type="text" name="Project Address"></div>
+<div class="field-group"><span class="field-label">Phone:</span><input type="text" name="Phone"></div>
+<div class="field-group"><span class="field-label">Email:</span><input type="email" name="Email"></div>
+<div class="field-group"><span class="field-label">Date:</span><input type="text" name="Date" placeholder="dd/mm/yyyy"></div>
+
+<h2>2. Product Selection</h2>
+
+<h3>Would you like assistance with choosing bathroom components?</h3>
+
+<div class="vertical-options">
+  <label><input type="radio" name="assist" value="assist" onclick="updateAssistance()"> Yes – I would like assistance and to choose from different options within my budget.</label>
+  <label><input type="radio" name="assist" value="none" onclick="updateAssistance()"> No – I have or I would like to choose everything myself.</label>
+</div>
+
+<div id="budget-field" style="display:none; margin-top:20px;">
+  <span class="field-label">Desired budget amount:</span>
+  <input type="text" name="Budget" placeholder="Enter your budget">
+</div>
+
+<h2>Bathroom Components</h2>
+
+<div id="product-table" style="display:none; margin-top:30px;">
+
+<table>
+
+  <tr>
+    <th>Item</th>
+    <th>Selected</th>
+    <th>Undecided</th>
+    <th>Need Recommendations</th>
+    <th>N/A</th>
+    <th>Brand / product ideas</th>
+    <th>Web link</th>
+  </tr>
+
+  <!-- STANDARD ITEMS (ALL 12) -->
+
+  <!-- Template: copy pattern -->
+  <!-- 1. Floor Tiles -->
+  <tr id="row-floor">
+    <td>Floor Tiles</td>
+    <td><input type="radio" name="floor" value="selected" onclick="updateRow('floor','row-floor')"></td>
+    <td><input type="radio" name="floor" value="undecided" onclick="updateRow('floor','row-floor')"></td>
+    <td><input type="radio" name="floor" value="recommend" onclick="updateRow('floor','row-floor')"></td>
+    <td><input type="radio" name="floor" value="na" onclick="updateRow('floor','row-floor')"></td>
+    <td><input class="brand" type="text" name="Floor Tiles - Brand"></td>
+    <td><input class="link" type="text" name="Floor Tiles - Link"></td>
+  </tr>
+
+  <!-- 2. Wall Tiles -->
+  <tr id="row-wall">
+    <td>Wall Tiles</td>
+    <td><input type="radio" name="wall" value="selected" onclick="updateRow('wall','row-wall')"></td>
+    <td><input type="radio" name="wall" value="undecided" onclick="updateRow('wall','row-wall')"></td>
+    <td><input type="radio" name="wall" value="recommend" onclick="updateRow('wall','row-wall')"></td>
+    <td><input type="radio" name="wall" value="na" onclick="updateRow('wall','row-wall')"></td>
+    <td><input class="brand" type="text" name="Wall Tiles - Brand"></td>
+    <td><input class="link" type="text" name="Wall Tiles - Link"></td>
+  </tr>
+
+  <!-- 3. Feature Tiles -->
+  <tr id="row-feature">
+    <td>Feature / Other Tiles</td>
+    <td><input type="radio" name="feature" value="selected" onclick="updateRow('feature','row-feature')"></td>
+    <td><input type="radio" name="feature" value="undecided" onclick="updateRow('feature','row-feature')"></td>
+    <td><input type="radio" name="feature" value="recommend" onclick="updateRow('feature','row-feature')"></td>
+    <td><input type="radio" name="feature" value="na" onclick="updateRow('feature','row-feature')"></td>
+    <td><input class="brand" type="text" name="Feature Tiles - Brand"></td>
+    <td><input class="link" type="text" name="Feature Tiles - Link"></td>
+  </tr>
+
+  <!-- 4. Shower Screen -->
+  <tr id="row-shower">
+    <td>Shower Screen</td>
+    <td><input type="radio" name="shower" value="selected" onclick="updateRow('shower','row-shower')"></td>
+    <td><input type="radio" name="shower" value="undecided" onclick="updateRow('shower','row-shower')"></td>
+    <td><input type="radio" name="shower" value="recommend" onclick="updateRow('shower','row-shower')"></td>
+    <td><input type="radio" name="shower" value="na" onclick="updateRow('shower','row-shower')"></td>
+    <td><input class="brand" type="text" name="Shower Screen - Brand"></td>
+    <td><input class="link" type="text" name="Shower Screen - Link"></td>
+  </tr>
+
+  <!-- 5. Bath Tub -->
+  <tr id="row-bath">
+    <td>Bath Tub</td>
+    <td><input type="radio" name="bath" value="selected" onclick="updateRow('bath','row-bath')"></td>
+    <td><input type="radio" name="bath" value="undecided" onclick="updateRow('bath','row-bath')"></td>
+    <td><input type="radio" name="bath" value="recommend" onclick="updateRow('bath','row-bath')"></td>
+    <td><input type="radio" name="bath" value="na" onclick="updateRow('bath','row-bath')"></td>
+    <td><input class="brand" type="text" name="Bath Tub - Brand"></td>
+    <td><input class="link" type="text" name="Bath Tub - Link"></td>
+  </tr>
+
+  <!-- Continue identical pattern for items 6–12 -->
+  
+  <!-- 6. Toilet -->
+  <tr id="row-toilet">
+    <td>Toilet</td>
+    <td><input type="radio" name="toilet" value="selected" onclick="updateRow('toilet','row-toilet')"></td>
+    <td><input type="radio" name="toilet" value="undecided" onclick="updateRow('toilet','row-toilet')"></td>
+    <td><input type="radio" name="toilet" value="recommend" onclick="updateRow('toilet','row-toilet')"></td>
+    <td><input type="radio" name="toilet" value="na" onclick="updateRow('toilet','row-toilet')"></td>
+    <td><input class="brand" type="text" name="Toilet - Brand"></td>
+    <td><input class="link" type="text" name="Toilet - Link"></td>
+  </tr>
+
+  <!-- 7. Vanity -->
+  <tr id="row-vanity">
+    <td>Vanity</td>
+    <td><input type="radio" name="vanity" value="selected" onclick="updateRow('vanity','row-vanity')"></td>
+    <td><input type="radio" name="vanity" value="undecided" onclick="updateRow('vanity','row-vanity')"></td>
+    <td><input type="radio" name="vanity" value="recommend" onclick="updateRow('vanity','row-vanity')"></td>
+    <td><input type="radio" name="vanity" value="na" onclick="updateRow('vanity','row-vanity')"></td>
+    <td><input class="brand" type="text" name="Vanity - Brand"></td>
+    <td><input class="link" type="text" name="Vanity - Link"></td>
+  </tr>
+
+  <!-- 8. Basin -->
+  <tr id="row-basin">
+    <td>Basin</td>
+    <td><input type="radio" name="basin" value="selected" onclick="updateRow('basin','row-basin')"></td>
+    <td><input type="radio" name="basin" value="undecided" onclick="updateRow('basin','row-basin')"></td>
+    <td><input type="radio" name="basin" value="recommend" onclick="updateRow('basin','row-basin')"></td>
+    <td><input type="radio" name="basin" value="na" onclick="updateRow('basin','row-basin')"></td>
+    <td><input class="brand" type="text" name="Basin - Brand"></td>
+    <td><input class="link" type="text" name="Basin - Link"></td>
+  </tr>
+
+  <!-- 9. Tapware -->
+  <tr id="row-tapware">
+    <td>Tapware / Taps</td>
+    <td><input type="radio" name="tapware" value="selected" onclick="updateRow('tapware','row-tapware')"></td>
+    <td><input type="radio" name="tapware" value="undecided" onclick="updateRow('tapware','row-tapware')"></td>
+    <td><input type="radio" name="tapware" value="recommend" onclick="updateRow('tapware','row-tapware')"></td>
+    <td><input type="radio" name="tapware" value="na" onclick="updateRow('tapware','row-tapware')"></td>
+    <td><input class="brand" type="text" name="Tapware - Brand"></td>
+    <td><input class="link" type="text" name="Tapware - Link"></td>
+  </tr>
+
+  <!-- 10. Mirror -->
+  <tr id="row-mirror">
+    <td>Mirror / Mirror Cabinet</td>
+    <td><input type="radio" name="mirror" value="selected" onclick="updateRow('mirror','row-mirror')"></td>
+    <td><input type="radio" name="mirror" value="undecided" onclick="updateRow('mirror','row-mirror')"></td>
+    <td><input type="radio" name="mirror" value="recommend" onclick="updateRow('mirror','row-mirror')"></td>
+    <td><input type="radio" name="mirror" value="na" onclick="updateRow('mirror','row-mirror')"></td>
+    <td><input class="brand" type="text" name="Mirror - Brand"></td>
+    <td><input class="link" type="text" name="Mirror - Link"></td>
+  </tr>
+
+  <!-- 11. Towel Rails -->
+  <tr id="row-towel">
+    <td>Towel Rails / Racks</td>
+    <td><input type="radio" name="towel" value="selected" onclick="updateRow('towel','row-towel')"></td>
+    <td><input type="radio" name="towel" value="undecided" onclick="updateRow('towel','row-towel')"></td>
+    <td><input type="radio" name="towel" value="recommend" onclick="updateRow('towel','row-towel')"></td>
+    <td><input type="radio" name="towel" value="na" onclick="updateRow('towel','row-towel')"></td>
+    <td><input class="brand" type="text" name="Towel Rails - Brand"></td>
+    <td><input class="link" type="text" name="Towel Rails - Link"></td>
+  </tr>
+
+  <!-- 12. Toilet Roll Holder -->
+  <tr id="row-roll">
+    <td>Toilet Roll Holder</td>
+    <td><input type="radio" name="roll" value="selected" onclick="updateRow('roll','row-roll')"></td>
+    <td><input type="radio" name="roll" value="undecided" onclick="updateRow('roll','row-roll')"></td>
+    <td><input type="radio" name="roll" value="recommend" onclick="updateRow('roll','row-roll')"></td>
+    <td><input type="radio" name="roll" value="na" onclick="updateRow('roll','row-roll')"></td>
+    <td><input class="brand" type="text" name="Roll Holder - Brand"></td>
+    <td><input class="link" type="text" name="Roll Holder - Link"></td>
+  </tr>
+
+  <!-- GAP BEFORE HIGH-END ITEMS -->
+  <tr style="height:20px; background:none; border:none;"></tr>
+
+  <!-- HIGH END ITEMS -->
+  <tbody id="high-end-rows" style="display:none;">
+
+    <tr id="row-led">
+      <td>LED Mood Lighting</td>
+      <td><input type="radio" name="led" value="selected" onclick="updateRow('led','row-led')"></td>
+      <td><input type="radio" name="led" value="undecided" onclick="updateRow('led','row-led')"></td>
+      <td><input type="radio" name="led" value="recommend" onclick="updateRow('led','row-led')"></td>
+      <td><input type="radio" name="led" value="na" onclick="updateRow('led','row-led')"></td>
+      <td><input class="brand" type="text" name="LED Mood Lighting - Brand"></td>
+      <td><input class="link" type="text" name="LED Mood Lighting - Link"></td>
+    </tr>
+
+    <tr id="row-heat">
+      <td>Underfloor Heating</td>
+      <td><input type="radio" name="heat" value="selected" onclick="updateRow('heat','row-heat')"></td>
+      <td><input type="radio" name="heat" value="undecided" onclick="updateRow('heat','row-heat')"></td>
+      <td><input type="radio" name="heat" value="recommend" onclick="updateRow('heat','row-heat')"></td>
+      <td><input type="radio" name="heat" value="na" onclick="updateRow('heat','row-heat')"></td>
+      <td><input class="brand" type="text" name="Underfloor Heating - Brand"></td>
+      <td><input class="link" type="text" name="Underfloor Heating - Link"></td>
+    </tr>
+
+    <tr id="row-sky">
+      <td>Skylight Installation</td>
+      <td><input type="radio" name="sky" value="selected" onclick="updateRow('sky','row-sky')"></td>
+      <td><input type="radio" name="sky" value="undecided" onclick="updateRow('sky','row-sky')"></td>
+      <td><input type="radio" name="sky" value="recommend" onclick="updateRow('sky','row-sky')"></td>
+      <td><input type="radio" name="sky" value="na" onclick="updateRow('sky','row-sky')"></td>
+      <td><input class="brand" type="text" name="Skylight Installation - Brand"></td>
+      <td><input class="link" type="text" name="Skylight Installation - Link"></td>
+    </tr>
+
+  </tbody>
+
+</table>
+</div>
+
+<h2>Windows</h2>
+
+<div class="vertical-options">
+  <label><input type="radio" name="window" id="window-yes" value="Yes" onclick="updateWindows()"> Yes – there is currently a window</label>
+  <label><input type="radio" name="window" id="window-no" value="No" onclick="updateWindows()"> No – there is no window</label>
+</div>
+
+<div id="window-yes-options" class="sub-options" style="display:none;">
+  <label><input type="radio" name="window_existing" value="Keep existing"> I am happy to keep this window where it is</label>
+  <label><input type="radio" name="window_existing" value="Replace new"> I would like to replace this window with a new window</label>
+</div>
+
+<div id="window-no-options" class="sub-options" style="display:none;">
+  <label><input type="radio" name="window_none" value="Not required"> No need for a window</label>
+  <label><input type="radio" name="window_none" value="Install new"> I would like to install a window</label>
+</div>
+
+<h2>Project Information</h2>
+
+<div class="vertical-options">
+  <label><input type="radio" name="living" id="living-yes" onclick="updateLiving()"> Someone will be living in the home during construction</label>
+  <label><input type="radio" name="living" id="living-no"  onclick="updateLiving()"> No, the home will be vacant</label>
+</div>
+
+<div id="second-bathroom" class="sub-options" style="display:none;">
+  <label><input type="radio" name="secondbath" value="Yes"> Yes – there is a second functional bathroom</label>
+  <label><input type="radio" name="secondbath" value="No"> No – there is not another functional bathroom</label>
+</div>
+
+<div class="field-group" style="margin-top:20px;">
+  <span class="field-label">Desired construction commencement date:</span>
+  <input type="text" name="Commencement Date" placeholder="dd/mm/yyyy">
+</div>
+
+<h2>Notes / Additional Information</h2>
+<div class="notes-box">
+<textarea name="Notes"></textarea>
+</div>
+
+<button class="submit-btn" type="submit">Submit Form</button>
+
+</form>
+</div>
+
+</body>
+</html>
